@@ -1,60 +1,106 @@
-# Enterprise PySpark Batch Data Pipeline
+#  E-Commerce Sales Dashboard & Batch Analytics
 
-Proyek ini adalah implementasi Data Pipeline berbasis Batch Processing menggunakan Apache Spark (PySpark). Pipeline ini dirancang untuk mensimulasikan proses ETL (Extract, Transform, Load) skala perusahaan, mulai dari pembersihan data mentah hingga penyimpanan data teragregasi ke dalam format Parquet.
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Apache Spark](https://img.shields.io/badge/Apache_Spark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
+![Ubuntu WSL](https://img.shields.io/badge/Ubuntu_WSL-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
 
-## Fitur Utama
+Proyek ini merupakan bagian dari tugas **Big Data Analytics** yang mengimplementasikan *Batch Processing* menggunakan **Apache Spark (PySpark)** untuk pipeline data, dan **Microsoft Power BI** untuk visualisasi data interaktif.
 
-* **Schema Enforcement:** Menentukan struktur data secara eksplisit untuk menjamin integritas data.
-* **Data Cleaning:** Menghapus duplikat, menangani missing values pada kolom kritikal, dan memfilter data transaksi yang tidak valid.
-* **Data Transformation:** Melakukan kalkulasi bisnis seperti total_amount per transaksi.
-* **Data Aggregation:** Menghitung metrik bisnis utama termasuk total pendapatan per kategori, produk terlaris, dan rata-rata nilai transaksi.
-* **Storage Management:** Menyimpan hasil akhir ke dalam format Parquet dengan teknik partitioning untuk optimasi kueri.
-* **Logging & Monitoring:** Dilengkapi dengan sistem logging untuk melacak status eksekusi pipeline.
+##  Deskripsi Proyek
+Sistem ini dibangun untuk memproses data mentah transaksi e-commerce dalam jumlah besar. Pipeline PySpark bertugas untuk membersihkan data, melakukan transformasi, dan menghitung agregasi metrik bisnis utama. Hasil akhir dari pemrosesan ini diekspor ke dalam direktori `serving` berformat CSV, yang kemudian dihubungkan ke Power BI untuk divisualisasikan menjadi sebuah *dashboard* analitik yang komprehensif.
 
-## Prasyarat
+##  Teknologi & Tools yang Digunakan
+- **Bahasa Pemrograman:** Python 3.x
+- **Big Data Framework:** Apache Spark (PySpark)
+- **Visualisasi Data:** Microsoft Power BI Desktop
+- **Environment:** WSL (Windows Subsystem for Linux) - Ubuntu
+- **Version Control:** Git & GitHub
+- **IDE:** Visual Studio Code (VS Code)
 
-Sebelum menjalankan pipeline ini, pastikan sistem Anda telah terinstal:
+##  Metrik Bisnis yang Dihitung
+Pipeline Spark dalam proyek ini dirancang untuk menghitung 3 Key Performance Indicators (KPI) utama:
+1. **Total Revenue:** Menghitung total keseluruhan pendapatan dari semua transaksi yang diproses.
+2. **Top Products:** Mengidentifikasi produk dengan jumlah penjualan (kuantitas) terbanyak.
+3. **Revenue Category:** Menganalisis total pendapatan yang dihasilkan oleh masing-masing kategori produk (Electronics, Computing, Accessories).
 
-* Python 3.x
-* Java (OpenJDK 11/8)
-* Apache Spark
-* PySpark Library
+---
 
-## Struktur Proyek
+##  Output Wajib yang Dikumpulkan
 
+Berikut adalah dokumentasi dan bukti pengerjaan sesuai dengan kriteria tugas:
+
+### 1. Screenshot Dashboard Power BI
+Visualisasi hasil pemrosesan data menggunakan PySpark yang ditampilkan melalui Power BI.
+![Dashboard Power BI](screenshots/dashboard_Power_BI.png)
+
+### 2. File Power BI
+File visualisasi mentah telah disertakan di dalam *repository* ini dengan nama:
+- `bigdata_dashboard.pbix`
+
+### 3. Screenshot Folder Serving Dataset (`data/serving`)
+Bukti bahwa *script* PySpark berhasil mengekspor data hasil agregasi ke dalam direktori *serving* dalam bentuk tabel/partisi CSV.
+![Folder Serving Dataset](screenshots/folder_serving_dataset.png)
+
+### 4. Screenshot Terminal Saat Menjalankan Script
+Bukti eksekusi *script* analisis `python scripts/analytics_layer.py` yang berjalan sukses tanpa error di terminal WSL/Ubuntu.
+![Eksekusi Terminal](screenshots/terminal_saat_menjalankan_analytics_layer.png)
+
+---
+
+##  Struktur Proyek
 ```text
 bigdata-project/
+│
 ├── data/
-│   ├── raw/                # Dataset mentah (CSV)
-│   ├── clean/              # Data hasil pembersihan (Parquet)
-│   └── curated/            # Data hasil agregasi (Business Metrics)
-├── logs/                   # Log eksekusi pipeline
+│   ├── raw/                 # Data transaksi mentah
+│   └── serving/             # Data agregasi hasil pemrosesan Spark
+│
 ├── scripts/
-│   └── batch_pipeline_enterprise.py  # Script utama PySpark
-├── venv/                   # Virtual environment
-└── README.md
+│   └── analytics_layer.py   # Script utama PySpark untuk transformasi data
+│
+├── screenshots/             # Folder berisi bukti screenshot tugas
+│   ├── dashboard_Power_BI.png
+│   ├── folder_serving_dataset.png
+│   └── terminal_saat_menjalankan_analytics_layer.png
+│
+├── venv/                    # Virtual Environment Python
+├── .gitignore
+├── README.md
+└── bigdata_dashboard.pbix   # File Dashboard Power BI
 
 ```
 
-## Cara Menjalankan
+## Prasyarat & Cara Menjalankan Proyek
 
-1. **Aktifkan Virtual Environment:**
-`source venv/bin/activate`
-2. **Instal Dependensi:**
-`pip install pyspark`
-3. **Jalankan Pipeline:**
-`python scripts/batch_pipeline_enterprise.py`
+**Prasyarat Sistem:**
+Pastikan sistem (Linux/WSL) sudah terinstal Python 3, Java (OpenJDK 11/8), dan Apache Spark.
 
-## Hasil Pemrosesan
+**Langkah-langkah eksekusi:**
 
-Pipeline ini menghasilkan beberapa layer data di folder data/curated/:
+1. Aktifkan *virtual environment*:
+```bash
+source venv/bin/activate
 
-* **category_revenue:** Total pendapatan per kategori.
-* **top_products:** Daftar 5 produk dengan penjualan terbanyak.
-* **avg_transaction:** Kebiasaan belanja rata-rata per pelanggan.
+```
 
-## Bukti Eksekusi Program
-![Bukti Eksekusi](screenshots/BUKTI_PYTHON_BERHASIL_DIEKSEKUSI.png)
+
+2. Instal *library* PySpark (jika belum ada):
+```bash
+pip install pyspark
+
+```
+
+
+3. Jalankan *script* utama PySpark:
+```bash
+python scripts/analytics_layer.py
+
+```
+
+
+4. Buka file `bigdata_dashboard.pbix` menggunakan aplikasi **Power BI Desktop**. Klik tombol **Refresh** pada menu *Home* untuk memuat data CSV terbaru dari folder `data/serving`.
+
 ---
 
-**Author:** **Ivan Dwika Bagaskara** *Rain*
+*Dibuat oleh Rain/Hujan (Ivan Dwika Bagaskara) untuk pemenuhan tugas praktikum Big Data Analytics.*
