@@ -51,9 +51,21 @@ Bukti eksekusi *script* analisis `python scripts/analytics_layer.py` yang berjal
 **Bagian 2:**
 ![Eksekusi Terminal 2](screenshots/terminal_saat_menjalankan_analytics_layer_2.png)
 
+### 5. Hasil Pemrosesan Analytics Layer
+Berikut adalah rincian bukti hasil eksekusi untuk masing-masing metrik yang diproses oleh Apache Spark:
+
+**Total Revenue:**
+![Total Revenue](screenshots/total_revenue_hasil_eksekusi_analytics_layer.png)
+
+**Top Products:**
+![Top Products](screenshots/top_products_hasil_eksekusi_analytics_layer.png)
+
+**Category Revenue:**
+![Category Revenue](screenshots/category_revenue_hasil_eksekusi_analytics_layer.png)
+
 ---
 
-##  Struktur Proyek
+## 📂 Struktur Proyek
 ```text
 bigdata-project/
 │
@@ -62,13 +74,16 @@ bigdata-project/
 │   └── serving/             # Data agregasi hasil pemrosesan Spark
 │
 ├── scripts/
-│   └── analytics_layer.py   # Script utama PySpark untuk transformasi data
+│   ├── analytics_layer.py   # Script utama PySpark untuk transformasi data
+│   ├── batch_pipeline_enterprise.py
+│   └── visualization_layer.py
 │
 ├── screenshots/             # Folder berisi bukti screenshot tugas
 │   ├── dashboard_Power_BI.png
 │   ├── folder_serving_dataset.png
 │   ├── terminal_saat_menjalankan_analytics_layer_1.png
-│   └── terminal_saat_menjalankan_analytics_layer_2.png
+│   ├── terminal_saat_menjalankan_analytics_layer_2.png
+│   └── ... (screenshot hasil metrik lainnya)
 │
 ├── venv/                    # Virtual Environment Python
 ├── .gitignore
@@ -82,31 +97,41 @@ bigdata-project/
 **Prasyarat Sistem:**
 Pastikan sistem (Linux/WSL) sudah terinstal Python 3, Java (OpenJDK 11/8), dan Apache Spark.
 
-**Langkah-langkah eksekusi:**
+**Langkah-langkah Eksekusi Script:**
 
 1. Aktifkan *virtual environment*:
-
 ```bash
 source venv/bin/activate
 
 ```
 
-2. Instal *library* PySpark (jika belum ada):
 
+2. Instal *library* PySpark (jika belum ada):
 ```bash
 pip install pyspark
 
 ```
 
-3. Jalankan *script* utama PySpark:
 
+3. Jalankan *script* utama PySpark:
 ```bash
 python scripts/analytics_layer.py
 
 ```
 
-4. Buka file `bigdata_dashboard.pbix` menggunakan aplikasi **Power BI Desktop**. Klik tombol **Refresh** pada menu *Home* untuk memuat data CSV terbaru dari folder `data/serving`.
+
+
+**Cara Menggunakan Power BI Desktop:**
+
+1. Pastikan Anda telah menginstal aplikasi **Microsoft Power BI Desktop**.
+2. Buka file `bigdata_dashboard.pbix` yang ada di *repository* ini dengan cara klik ganda (*double-click*).
+3. Karena sumber data (CSV) bersifat lokal, Anda mungkin perlu menyesuaikan jalurnya (*Data Source Settings*):
+* Pergi ke menu **Home** > **Transform Data** > **Data source settings**.
+* Ubah jalur file (Change Source) agar mengarah ke folder `data/serving` yang ada di komputermu.
+
+
+4. Jika jalur sudah benar, klik tombol **Refresh** pada menu *Home* untuk memuat data terbaru hasil pemrosesan PySpark.
 
 ---
 
-*Dibuat oleh Rain/Hujan (Ivan Dwika Bagaskara) untuk pemenuhan tugas praktikum Big Data Analytics.*
+*Dibuat oleh Rain/Hujan (Ivan Dwika Bagaskara) untuk pemenuhan tugas praktikum Big Data Technology.*
